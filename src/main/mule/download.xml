@@ -16,7 +16,7 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<api-gateway:autodiscovery apiId="19563050" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="48ae4459-3a99-4e59-a493-e16132e5734d" flowRef="downloadFlow" />
 	<flow name="downloadFlow" doc:id="84112308-21e2-496a-bd8f-99fd53691b3e" >
 		<http:listener doc:name="Listener" doc:id="834f8d0a-3791-4b2e-a192-749d5d9d18bc" config-ref="HTTP_Listener_config1" path="/*"/>
-		<http:load-static-resource doc:name="Load static resource" doc:id="ddff17cf-9484-47f1-a06d-0ddf581a9a18" resourceBasePath="C:\Users\arunj\AnypointStudio\studio-workspace\download\src\main\resources"/>
+		<http:load-static-resource doc:name="Load static resource" doc:id="ddff17cf-9484-47f1-a06d-0ddf581a9a18" resourceBasePath="https://github.com/jellaarun/Birthady/tree/main/src/main/resources"/>
 	</flow>
 	<flow name="downloadFlow1" doc:id="5166ade5-30eb-4bdb-ba07-c4fc3f2d2333" >
 		<http:listener doc:name="Listener" doc:id="f5f2575f-b41d-4ab0-94d6-3b41f8f04a80" config-ref="HTTP_Listener_config1" path="/birthday"/>
