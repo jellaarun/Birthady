@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:email="http://www.mulesoft.org/schema/mule/email"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:sockets="http://www.mulesoft.org/schema/mule/sockets" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/sockets http://www.mulesoft.org/schema/mule/sockets/current/mule-sockets.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<http:listener-config name="HTTP_Listener_config1" doc:name="HTTP Listener config" doc:id="1835c1e2-3c92-4e19-9b25-9cc1a21a0a93" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="d8c5fa2d-9aa4-430a-aaf8-0578f27254a9" />
+	<api-gateway:autodiscovery apiId="19563050" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="48ae4459-3a99-4e59-a493-e16132e5734d" flowRef="downloadFlow" />
+	<flow name="downloadFlow" doc:id="84112308-21e2-496a-bd8f-99fd53691b3e" >
+		<http:listener doc:name="Listener" doc:id="834f8d0a-3791-4b2e-a192-749d5d9d18bc" config-ref="HTTP_Listener_config1" path="/*"/>
+		<http:load-static-resource doc:name="Load static resource" doc:id="ddff17cf-9484-47f1-a06d-0ddf581a9a18" resourceBasePath="C:\Users\arunj\AnypointStudio\studio-workspace\download\src\main\resources"/>
+	</flow>
+	<flow name="downloadFlow1" doc:id="5166ade5-30eb-4bdb-ba07-c4fc3f2d2333" >
+		<http:listener doc:name="Listener" doc:id="f5f2575f-b41d-4ab0-94d6-3b41f8f04a80" config-ref="HTTP_Listener_config1" path="/birthday"/>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="3862d6d9-e789-4f84-a3f2-b42a9b875d57" />
+		<logger level="INFO" doc:name="Logger" doc:id="101a7da4-ad47-4e73-9e92-ec55571c4436" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="ad4b26fb-a1a9-4ec5-92b5-ce5859a4540c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"Happy BirthDay BRO RAJU"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<file:read doc:name="Read" doc:id="216cf50e-7499-48d1-8a6f-8ec2283c8bbd" config-ref="File_Config" path="C:/Users/arunj/Downloads/testing/Birthday_girl.jpg"/>
+	</flow>
+</mule>
